@@ -1,0 +1,33 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define the model for the TinyLink assignment
+model Link {
+  // A unique identifier for the link entry
+  id              String    @id @default(uuid())
+
+  // The short code (e.g., 'docs'). Must be unique across all links.
+  shortCode       String    @unique @db.VarChar(8)
+
+  // The full URL the short link redirects to
+  originalUrl     String
+
+  // Total count of redirects performed
+  clicks          Int       @default(0)
+
+  // Timestamp of the last time a redirect occurred (required for Dashboard)
+  lastClickedAt   DateTime? @map("last_clicked_at")
+
+  // Timestamp of when the link was created
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@map("links") // Set the table name in Postgres to 'links'
+}

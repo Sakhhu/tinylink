@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Tech Stack Used:
+Next.js 14+ (App Router)
+TypeScript
+Prisma ORM
+PostgreSQL (Neon DB)
+TailwindCSS
+Thunder Client (API testing)
 
-## Getting Started
+Project Overview:
+TinyLink allows users to:
+Create a short link with a custom code
+Store the link in a database
+Redirect users when they visit /shortCode
+Track how many times the link has been clicked
+Show basic analytics on a small dashboard page
 
-First, run the development server:
+How to Run the Project Locally:
+1. Clone the repository
+git clone https://github.com/Sakhhu/tinylink
+cd tinylink
 
-```bash
+2. Install dependencies
+npm install
+
+3. Create a .env file
+
+Add your database URL:
+
+DATABASE_URL="postgresql://neondb_owner:npg_F9tb4xpowRlO@ep-wandering-water-a12p2d6v-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+
+
+4. Run Prisma
+npx prisma generate
+npx prisma migrate dev
+
+5. Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Completed Features:
+1. Project Setup
 
-## Learn More
+Full Next.js project structure created
+TypeScript, Tailwind, Prisma all configured
 
-To learn more about Next.js, take a look at the following resources:
+2. Prisma Model
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Link model created with:
+shortCode
+originalUrl
+clicks
+lastClickedAt
+timestamps
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Database Setup
 
-## Deploy on Vercel
+Neon database created
+Prisma connected successfully
+Migrations created and synced
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. API Endpoint to Create Short Link (POST /api/links)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Accepts JSON (shortCode + originalUrl)
+Stores in database
+Tested using Thunder Client
+
+5. Redirect Route Structure Created
+
+Folder /app/[code]/route.ts created
+Base setup done for redirect logic
+
+6. Basic Dashboard Page Added
+
+UI structure created
+Page loads successfully in browser
+
+7. GitHub Submission
+
+Full project pushed to public repo
+Clean folder structure
+
+Pending / Partially Completed Features
+1. Redirect Logic
+
+Inside /app/[code]/route.ts, the following is pending:
+
+Fetch link by shortCode
+If found: update click count + timestamp
+Redirect to original URL
+
+2. Dashboard Data Fetching
+
+Fetch list of all links from Prisma
+Display in UI
+Show clicks & last clicked timestamp
+
+3. Error Handling
+
+Return proper JSON for missing fields
+Handle invalid short codes gracefully
+
+4. README Documentation Enhancements
+
+Add screenshots
+Add detailed API documentation
+
+API Endpoints (Implemented)
+POST /api/links
+
+Create a new short link.
+
+Request:
+{
+  "shortCode": "docs",
+  "originalUrl": "https://example.com"
+}
+
+Success Response:
+{
+  "message": "Link created successfully"
+}
+
+Screenshots (Can Be Added Later):
+
+Thunder Client request for POST /api/links
+Database table (Neon Console)
+App home page
+Dashboard preview
+
+Challenges Faced:
+
+Environment variable not loading (DATABASE_URL missing)
+Prisma client not generating
+Redirect route initially causing internal server error
+Turbopack + Next.js locking issue while running npm run dev
+Multiple Node processes blocking .next/dev/lock
+Learning new stack while solving assignment
+
+Candidate:
+Shital Savant
+Aspiring Backend / Full-Stack Developer
+Passionate about backend systems, APIs, database design, and problem-solving.
